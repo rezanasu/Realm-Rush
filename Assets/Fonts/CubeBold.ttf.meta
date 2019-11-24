@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: b8a902d212a0915489b06463832d4b8c
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Cube Bold
+  fontNames:
+  - Cube Bold
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 5106d97c2f6d47d45abed39cc45e49c9, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
