@@ -10,6 +10,10 @@ public class PathFinder : MonoBehaviour
     Dictionary<Vector2Int, Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
     Queue<Waypoint> queue = new Queue<Waypoint>();
     bool isRunning = true;
+    Waypoint searchCenter;
+
+    private List<Waypoint> path = new List<Waypoint>(); // todo make private
+
     Vector2Int[] directions =
     {
         Vector2Int.up,
@@ -18,29 +22,49 @@ public class PathFinder : MonoBehaviour
         Vector2Int.down
     };
 
-    // Start is called before the first frame update
-    void Start()
+    public List<Waypoint> GetPath()
     {
         LoadBlocks();
         ColorStartEnd();
-        PathFind();
-      //  ExploreNeighbours();
+        BreadthFirstSearch();
+        CreatePath();
+        return path;
     }
 
-    private void PathFind()
+    private void CreatePath()
+    {
+        path.Add(endWaypoint);
+        Waypoint previous = endWaypoint.exploredFrom;
+        
+        while(previous != startWaypoint)
+        {
+            path.Add(previous);
+            previous = previous.exploredFrom;
+        }
+
+        // add start waypoint
+        path.Add(startWaypoint);
+
+        // reverse the list
+        path.Reverse();
+    }
+
+    private void BreadthFirstSearch()
     {
         queue.Enqueue(startWaypoint);
 
-        while(queue.Count > 0)
+        while(queue.Count > 0 && isRunning)
         {
-            Waypoint searchCenter = queue.Dequeue();
-            HaltIfEndFound(searchCenter);
+            searchCenter = queue.Dequeue();
+            HaltIfEndFound();
+            ExploreNeighbours();
+            searchCenter.isExplored = true;
         }
     }
 
-    private void HaltIfEndFound(Waypoint startCenter)
+    private void HaltIfEndFound()
     {
-       if(startCenter == endWaypoint)
+       if(searchCenter == endWaypoint)
         {
             print("Searching from end node, therefore stopping"); // todo remove Log
             isRunning = false;
@@ -51,17 +75,28 @@ public class PathFinder : MonoBehaviour
     {
         foreach(Vector2Int direction in directions)
         {
-            Vector2Int explorationCoordinates = startWaypoint.GetGridPos() + direction;
-            try
+            Vector2Int neighbourCoordinates = searchCenter.GetGridPos() + direction;
+            if(grid.ContainsKey(neighbourCoordinates))
             {
-                grid[explorationCoordinates].SetTopColor(Color.blue);
+                QueueNewNeighbours(neighbourCoordinates);
             }
-            catch
-            {
-                // do nothing
-            }
-            
         }
+    }
+
+    private void QueueNewNeighbours(Vector2Int neighbourCoordinates)
+    {
+        Waypoint neighbour = grid[neighbourCoordinates];
+        if(neighbour.isExplored || queue.Contains(neighbour))
+        {
+
+        }
+        else
+        {
+          
+            queue.Enqueue(neighbour);
+            neighbour.exploredFrom = searchCenter;
+        }
+        
     }
 
     private void ColorStartEnd()
