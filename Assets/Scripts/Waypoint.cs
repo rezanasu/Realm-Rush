@@ -5,9 +5,12 @@ using UnityEngine;
 public class Waypoint : MonoBehaviour
 {
     [SerializeField] Color exploredColor;
+    [SerializeField] Tower towerPrefab;
+    [SerializeField] GameObject towerParent;
 
     public bool isExplored = false;
     public Waypoint exploredFrom;
+    public bool isPlaceable = true;
 
     Vector2Int gridPos;
     const int gridSize = 10;
@@ -23,6 +26,28 @@ public class Waypoint : MonoBehaviour
         if(isExplored)
         {
             SetTopColor(exploredColor);
+        }
+    }
+
+    private void OnMouseOver()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            if(isPlaceable)
+            {
+                Tower towerObject = Instantiate(towerPrefab, transform.position, Quaternion.identity);
+                towerObject.transform.SetParent(towerParent.transform);  
+                
+                if(towerObject)
+                {
+                    isPlaceable = false;
+                }
+            }
+            else
+            {
+                print("Can't place here!");
+            }
+            
         }
     }
 

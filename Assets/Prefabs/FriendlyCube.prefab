@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 2923387504570675546}
   - component: {fileID: 3660779355081081845}
   - component: {fileID: 4637125384072935687}
+  - component: {fileID: 6630353169144186273}
   m_Layer: 0
   m_Name: FriendlyCube
   m_TagString: Untagged
@@ -153,8 +154,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   exploredColor: {r: 0.10893297, g: 0, b: 1, a: 0}
+  towerPrefab: {fileID: 3056697375500093514, guid: f4ee673d2f21cf14299d60ca27d5ce2d,
+    type: 3}
+  towerParent: {fileID: 0}
   isExplored: 0
   exploredFrom: {fileID: 0}
+  isPlaceable: 1
+--- !u!65 &6630353169144186273
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2923387504570675547}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: -5, z: 0}
 --- !u!1 &3660779356409668847
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,7 +251,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3660779356409668847}
-  m_Text: 1.0
+  m_Text: 2.0
   m_OffsetZ: 0
   m_CharacterSize: 0.5
   m_LineSpacing: 1
