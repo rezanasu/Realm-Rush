@@ -5,8 +5,7 @@ using UnityEngine;
 public class Waypoint : MonoBehaviour
 {
     [SerializeField] Color exploredColor;
-    [SerializeField] Tower towerPrefab;
-    [SerializeField] GameObject towerParent;
+   
 
     public bool isExplored = false;
     public Waypoint exploredFrom;
@@ -14,12 +13,6 @@ public class Waypoint : MonoBehaviour
 
     Vector2Int gridPos;
     const int gridSize = 10;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     void Update()
     {
@@ -35,13 +28,7 @@ public class Waypoint : MonoBehaviour
         {
             if(isPlaceable)
             {
-                Tower towerObject = Instantiate(towerPrefab, transform.position, Quaternion.identity);
-                towerObject.transform.SetParent(towerParent.transform);  
-                
-                if(towerObject)
-                {
-                    isPlaceable = false;
-                }
+                FindObjectOfType<TowerFactory>().AddTower(this);
             }
             else
             {
